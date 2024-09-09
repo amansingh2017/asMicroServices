@@ -16,7 +16,7 @@ public class CurrencyExchangeController {
     private final Environment environment;
     private final DaoService daoService;
 
-    private Logger logger = LoggerFactory.getLogger(CurrencyExchangeController.class);
+    private final Logger logger = LoggerFactory.getLogger(CurrencyExchangeController.class);
 
     @Autowired
     public CurrencyExchangeController(Environment environment, DaoService daoService) {
@@ -27,7 +27,7 @@ public class CurrencyExchangeController {
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyExchange retrieveCurrencyMapping(@PathVariable String from, @PathVariable String to){
         CurrencyExchange currencyExchange = daoService.getCurrencyExchange(from, to);
-        currencyExchange.setEnvironment(environment.getProperty("local.server.port"));
+        currencyExchange.setEnvironment(environment.getProperty("HOSTNAME"));
         logger.info("retrieveCurrencyMapping : {}" , currencyExchange);
         return currencyExchange;
     }

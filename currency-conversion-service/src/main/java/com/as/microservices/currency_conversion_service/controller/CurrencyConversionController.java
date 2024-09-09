@@ -2,6 +2,8 @@ package com.as.microservices.currency_conversion_service.controller;
 
 import com.as.microservices.currency_conversion_service.model.CurrencyConversion;
 import com.as.microservices.currency_conversion_service.proxy.CurrencyExchangeProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import java.util.Map;
 public class CurrencyConversionController {
 
     private final CurrencyExchangeProxy currencyExchangeProxy;
+    private final Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
 
     @Autowired
     public CurrencyConversionController(CurrencyExchangeProxy currencyExchangeProxy) {
@@ -44,6 +47,7 @@ public class CurrencyConversionController {
         currencyConversion.setEnvironment(currencyConversion.getEnvironment()+" openfeign");
         currencyConversion.setQuantity(quantity);
         currencyConversion.setTotalCalculatedAmount(quantity*currencyConversion.getConversionMultiple());
+        logger.info("retrieveCurrencyConversionFeign from {} to {} for quantity {} is {}", from, to, quantity, currencyConversion.getTotalCalculatedAmount());
         return currencyConversion;
     }
 }

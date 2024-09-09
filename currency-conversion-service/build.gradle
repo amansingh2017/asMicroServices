@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.as.microservices'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-K8S-SNAPSHOT'
 
 java {
 	toolchain {
@@ -24,13 +24,13 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	/*implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'io.micrometer:micrometer-observation'
 	implementation 'io.micrometer:micrometer-tracing-bridge-otel'
 	implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
-	implementation 'io.github.openfeign:feign-micrometer'
+	implementation 'io.github.openfeign:feign-micrometer'*/
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -50,11 +50,11 @@ tasks.named('test') {
 
 task buildDockerImage(type: Exec) {
     dependsOn bootJar
-    commandLine 'docker', 'build', '-t', 'amansingh1997/currency-conversion-service:latest', '.'
+    commandLine 'docker', 'build', '-t', 'amansingh1997/currency-conversion-k8s:latest', '.'
 }
 
 task pushDockerImage(type: Exec) {
     dependsOn buildDockerImage
-    commandLine 'docker', 'push', 'amansingh1997/currency-conversion-service:latest'
+    commandLine 'docker', 'push', 'amansingh1997/currency-conversion-k8s:latest'
 }
 
